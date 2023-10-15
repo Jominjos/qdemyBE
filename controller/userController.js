@@ -42,6 +42,8 @@ module.exports = {
     res.cookie("jwt", "", {
       httpOnly: true,
       expires: new Date(0),
+      secure: false,
+      sameSite: "strict",
     });
     res.status(200).json({ message: "User logout success" });
   }),
