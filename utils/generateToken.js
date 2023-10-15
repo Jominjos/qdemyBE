@@ -5,6 +5,7 @@ const generateToken = (res, name) => {
     expiresIn: "1d",
   });
   res.cookie("jwt", token, {
+    path: "/",
     httpOnly: true,
     secure: true,
     sameSite: "strict",
