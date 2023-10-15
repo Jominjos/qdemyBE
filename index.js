@@ -10,7 +10,8 @@ app.use(cookieParser());
 const cors = require("cors");
 app.use(
   cors({
-    origin: "*",
+    origin: ["http://localhost:3000", "https://qdemy.netlify.app/"],
+    credentials: true,
   })
 );
 const userRoutes = require("./routes/userRoutes");
