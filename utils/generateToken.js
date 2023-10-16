@@ -10,7 +10,7 @@ const generateToken = (res, name) => {
     secure: true,
     sameSite: "strict",
     maxAge: 1000 * 60 * 60 * 24,
-    domain: "localhost",
+    domain: "qdemy.netlify.app",
   });
 };
 
