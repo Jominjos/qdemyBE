@@ -8,9 +8,9 @@ const generateToken = (res, name) => {
     path: "/",
     httpOnly: true,
     secure: true,
-    sameSite: "None",
+    sameSite: "none",
     maxAge: 1000 * 60 * 60 * 24,
-    domain: ".qdemy.netlify.app",
+    domain: ".netlify.app",
   });
 };
 
