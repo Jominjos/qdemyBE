@@ -3,8 +3,9 @@ const User = require("../models/userModel");
 const asyncHandler = require("express-async-handler");
 
 const protect = asyncHandler(async (req, res, next) => {
+  console.log(req.headers);
   let token;
-  token = req.headers.accesstoken;
+  token = req.headers.token;
   // console.log(req.headers.accesstoken);
   // console.log(req.cookies);
   if (token) {
