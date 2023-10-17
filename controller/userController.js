@@ -8,9 +8,11 @@ module.exports = {
     console.log(req.body);
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-
+    console.log(user);
     if (user && (await user.matchPasswords(password))) {
       let token = generateToken(res, user.name);
+      res.cookie("token", token);
+      res.cookie("username", user.name);
       res.status(200).json({ message: "login success", token: token });
     } else {
       res.status(401).json({ error: "email or password is incorrect" });
