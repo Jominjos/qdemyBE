@@ -12,4 +12,7 @@ router
   .get(protect, User.getUser)
   .put(protect, User.updateUser);
 
+// .post(protect, User.addToCart)
+//.delete(protect, User.delFromCart);
+
 module.exports = router;

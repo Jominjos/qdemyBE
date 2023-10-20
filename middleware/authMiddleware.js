@@ -3,7 +3,8 @@ const User = require("../models/userModel");
 const asyncHandler = require("express-async-handler");
 
 const protect = asyncHandler(async (req, res, next) => {
-  console.log(req.headers);
+  //console.log(req.headers);
+  //console.log(req);
   let token;
   token = req.headers.token;
   // console.log(req.headers.accesstoken);
@@ -18,12 +19,13 @@ const protect = asyncHandler(async (req, res, next) => {
       );
 
       req.user = userdata[0];
+      //console.log(req.user);
       next();
     } catch {
       res.json({ message: "crash" });
     }
   } else {
-    res.json({ message: "please login" });
+    res.json({ message: "please login", headers: req.headers });
   }
 });
 

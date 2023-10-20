@@ -5,7 +5,7 @@ const generateToken = require("../utils/generateToken");
 module.exports = {
   //USER AUTHENTICATION
   authUser: asyncHandler(async (req, res, next) => {
-    console.log(req.body);
+    //console.log(req.body);
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     //console.log(user);
@@ -28,18 +28,19 @@ module.exports = {
     generateToken(res, dbdata.user);
     const sendingData = {
       id: dbdata._id,
+
       name: dbdata.name,
       email: dbdata.email,
     };
-    res.status(200).json({ message: sendingData });
+    res.status(200).json({ dbdata });
   }),
   //
   //UPDATE USER PUT
   updateUser: asyncHandler(async (req, res, next) => {
     res.status(200).json({ message: req.user });
   }),
+  // Get cart
 
-  //
   //Logout user
 
   logoutUser: asyncHandler(async (req, res, next) => {

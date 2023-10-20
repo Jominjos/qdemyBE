@@ -15,11 +15,13 @@ app.use(
   })
 );
 const userRoutes = require("./routes/userRoutes");
+const cartRoutes = require("./routes/cartRoutes");
 const courseRoutes = require("./routes/courseRoutes");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const connectDb = require("./config/db");
 connectDb();
 app.use("/api/user", userRoutes);
+app.use("/api/user", cartRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/", notFound);
 
