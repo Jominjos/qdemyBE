@@ -33,6 +33,7 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
 userSchema.methods.matchPasswords = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };

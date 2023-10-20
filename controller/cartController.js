@@ -16,13 +16,20 @@ module.exports = {
   //Add to cart
   addToCart: asyncHandler(async (req, res, next) => {
     let itemId = req.body.id;
-    const dbdata = await User.updateOne(
-      { name: req.user.name },
-      { $push: { cart: itemId } }
-    );
+    const exist = await User.findOne({
+      name: req.user.name,
+    });
+    let itemExist = exist.cart.includes(itemId);
+    if (!itemExist) {
+      const dbdata = await User.updateOne(
+        { name: req.user.name },
+        { $push: { cart: itemId } }
+      );
 
-    console.log(req.body.id);
-    res.json({ message: dbdata });
+      res.status(200).json({ message: "item added in cart", alert: false });
+    } else {
+      res.json({ message: "item already in cart", alert: true });
+    }
   }),
   //remove from cart
   removeCart: asyncHandler(async (req, res, next) => {
