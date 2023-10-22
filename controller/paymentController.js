@@ -1,8 +1,19 @@
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
-
+const User = require("../models/userModel");
 module.exports = {
   OrderPost: async (req, res) => {
+    const dbdata = await User.find(
+      { name: req.user.name },
+      { name: 1, cart: 1 }
+    ).populate("cart");
+    //console.log(dbdata[0]);
+    //res.json({ message: dbdata[0].cart });
+    let BillAmount = 0;
+    dbdata[0].cart.forEach((element) => {
+      BillAmount += Number(element.fees);
+    });
+    console.log(BillAmount);
     try {
       const instance = new Razorpay({
         key_id: process.env.RZPAY_ID,
@@ -10,7 +21,7 @@ module.exports = {
       });
 
       const options = {
-        amount: req.body.amount * 100,
+        amount: BillAmount * 100,
         currency: "INR",
         receipt: crypto.randomBytes(10).toString("hex"),
       };
