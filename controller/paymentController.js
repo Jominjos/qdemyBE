@@ -51,6 +51,7 @@ module.exports = {
         .digest("hex");
 
       if (razorpay_signature === expectedSign) {
+        await User.updateOne({ name: req.user.name }, { $set: { cart: [] } });
         return res
           .status(200)
           .json({ message: "Payment verified successfully" });
