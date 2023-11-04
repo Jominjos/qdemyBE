@@ -23,16 +23,29 @@ module.exports = {
   //
   //CREATE USER
   createUser: asyncHandler(async (req, res, next) => {
-    console.log(req.body);
-    const dbdata = await User.create(req.body);
-    generateToken(res, dbdata.user);
-    const sendingData = {
-      id: dbdata._id,
+    try {
+      const userData = req.body;
 
-      name: dbdata.name,
-      email: dbdata.email,
-    };
-    res.status(200).json({ dbdata });
+      // Check if the email address already exists
+      const existingEmailUser = await User.findOne({ email: userData.email });
+      if (existingEmailUser) {
+        return res.status(400).json({ error: "Email address already in use" });
+      }
+
+      // Check if the username already exists
+      const existingUsernameUser = await User.findOne({ name: userData.name });
+      if (existingUsernameUser) {
+        return res.status(400).json({ error: "Username already in use" });
+      }
+
+      const dbdata = await User.create(req.body);
+      generateToken(res, dbdata.user);
+
+      res.status(200).json({ dbdata });
+    } catch (error) {
+      console.error("Error creating user:", error);
+      res.status(500).json({ error: "User creation failed" });
+    }
   }),
   //
   //UPDATE USER PUT
@@ -54,6 +67,12 @@ module.exports = {
   }),
   // GET USER
   getUser: asyncHandler(async (req, res, next) => {
-    res.json({ message: { name: req.user.name, email: req.user.email } });
+    res.json({
+      message: {
+        name: req.user.name,
+        email: req.user.email,
+        role: req.user.role,
+      },
+    });
   }),
 };

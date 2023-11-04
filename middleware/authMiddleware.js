@@ -3,12 +3,12 @@ const User = require("../models/userModel");
 const asyncHandler = require("express-async-handler");
 
 const protect = asyncHandler(async (req, res, next) => {
-  //console.log(req.headers);
-  //console.log(req);
+  console.log("from auth headers:", req.headers);
+
   let token;
   token = req.headers.token;
-  // console.log(req.headers.accesstoken);
-  // console.log(req.cookies);
+  //console.log(req.headers.accesstoken);
+  //console.log(token);
   if (token) {
     let decoded;
     try {
@@ -19,7 +19,7 @@ const protect = asyncHandler(async (req, res, next) => {
       );
 
       req.user = userdata[0];
-      //console.log(req.user);
+      console.log("from authmiddleware", req.user);
       next();
     } catch {
       res.json({ message: "crash" });

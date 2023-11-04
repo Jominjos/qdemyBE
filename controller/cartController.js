@@ -6,7 +6,7 @@ module.exports = {
   //get cart
 
   getCart: asyncHandler(async (req, res, next) => {
-    //console.log(req.name);
+    //console.log(req.user);
     const dbdata = await User.find(
       { name: req.user.name },
       { name: 1, cart: 1 }

@@ -2,6 +2,7 @@ const Course = require("../models/coursesModel");
 
 module.exports = {
   getCourses: async (req, res, next) => {
+    console.log("from getcourses:", req.user);
     const dbdata = await Course.find();
     res.json({ courseDetails: dbdata });
   },

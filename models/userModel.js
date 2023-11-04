@@ -23,6 +23,11 @@ const userSchema = new mongoose.Schema(
         ref: "course",
       },
     ],
+    role: {
+      type: String,
+
+      default: "user",
+    },
     orders: [
       {
         type: mongoose.Schema.Types.ObjectId,
