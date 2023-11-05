@@ -25,6 +25,9 @@ app.use("/api/user", userRoutes);
 app.use("/api/user", cartRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/api/payment", paymentRoutes);
+app.use("/wakeup", (req, res) => {
+  res.json({ message: "server is live" });
+});
 app.use("/", notFound);
 
 app.listen(port, () => {
