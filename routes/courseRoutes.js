@@ -29,7 +29,7 @@ protect,
   router.post(
     "/del",
     protect,
-    UserRestrict.restrict(["admin", "superadmin"]),
+    UserRestrict.restrict(["superadmin"]),
     Course.deleteCourse
   );
 

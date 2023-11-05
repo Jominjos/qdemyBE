@@ -4,7 +4,7 @@ exports.restrict = (role) => {
     if (role.includes(req.user.role)) {
       next();
     } else {
-      res.json({
+      res.status(403).json({
         message: req.user.role + " is not permitted for this action",
       });
     }
