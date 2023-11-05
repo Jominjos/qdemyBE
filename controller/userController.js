@@ -12,10 +12,16 @@ module.exports = {
     if (user && (await user.matchPasswords(password))) {
       let token = generateToken(res, user.name);
       let username = user.name;
+      let role = user.role;
 
       res
         .status(200)
-        .json({ message: "login success", token: token, username: username });
+        .json({
+          message: "login success",
+          token: token,
+          username: username,
+          role: role,
+        });
     } else {
       res.status(401).json({ error: "email or password is incorrect" });
     }
