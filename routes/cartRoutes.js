@@ -6,13 +6,9 @@ const UserRestrict = require("../middleware/restrictMiddleware");
 //cart Routes
 router
   .route("/cart")
-  .get(
-    protect,
-    UserRestrict.restrict(["user", "admin", "superadmin"]),
-    Cart.getCart
-  )
-  .post(protect, Cart.addToCart)
-  .put(protect, Cart.removeCart);
+  .get(protect, UserRestrict.restrict(["user"]), Cart.getCart)
+  .post(protect, UserRestrict.restrict(["user"]), Cart.addToCart)
+  .put(protect, UserRestrict.restrict(["user"]), Cart.removeCart);
 // .post(protect, User.addToCart)
 //.delete(protect, User.delFromCart);
 
