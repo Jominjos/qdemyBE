@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
+const VerifyUser = require("../models/verifyModel");
 const generateToken = require("../utils/generateToken");
 
 module.exports = {
@@ -14,45 +15,18 @@ module.exports = {
       let username = user.name;
       let role = user.role;
 
-      res
-        .status(200)
-        .json({
-          message: "login success",
-          token: token,
-          username: username,
-          role: role,
-        });
+      res.status(200).json({
+        message: "login success",
+        token: token,
+        username: username,
+        role: role,
+      });
     } else {
       res.status(401).json({ error: "email or password is incorrect" });
     }
   }),
   //
-  //CREATE USER
-  createUser: asyncHandler(async (req, res, next) => {
-    try {
-      const userData = req.body;
 
-      // Check if the email address already exists
-      const existingEmailUser = await User.findOne({ email: userData.email });
-      if (existingEmailUser) {
-        return res.status(400).json({ error: "Email address already in use" });
-      }
-
-      // Check if the username already exists
-      const existingUsernameUser = await User.findOne({ name: userData.name });
-      if (existingUsernameUser) {
-        return res.status(400).json({ error: "Username already in use" });
-      }
-
-      const dbdata = await User.create(req.body);
-      generateToken(res, dbdata.user);
-
-      res.status(200).json({ dbdata });
-    } catch (error) {
-      console.error("Error creating user:", error);
-      res.status(500).json({ error: "User creation failed" });
-    }
-  }),
   //
   //UPDATE USER PUT
   updateUser: asyncHandler(async (req, res, next) => {
@@ -80,5 +54,24 @@ module.exports = {
         role: req.user.role,
       },
     });
+  }),
+
+  mailVerify: asyncHandler(async (req, res) => {
+    try {
+      const tokRecieved = req.params.token;
+      console.log(tokRecieved);
+      res.status(200).json({ message: "mail verified successfully" });
+      const dbdata = await VerifyUser.findOne({ token: tokRecieved });
+      const userCreated = await User.create({
+        name: dbdata.name,
+        email: dbdata.email,
+        password: dbdata.password,
+      });
+      console.log(userCreated);
+      console.log(dbdata);
+    } catch (e) {
+      console.log(e);
+      res.json({ error: e });
+    }
   }),
 };
