@@ -69,7 +69,7 @@ module.exports = {
         console.log(userCreated);
         console.log(dbdata);
       } else {
-        res.send("Token Invalid");
+        res.redirect("https://qdemy.netlify.app/login");
       }
     } catch (e) {
       console.log(e);
