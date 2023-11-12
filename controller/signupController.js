@@ -39,7 +39,7 @@ module.exports = {
         `<h1>HELLO</h1>
         <h2 > EMAIL VERIFICATION</h2>
         <p>This Mail is to verify your email for qdemy</p>
-        <a href="http://localhost:6003/api/user/verify/${token}">Click to verify</a>
+        <a href="https://qdemy.onrender.com/api/user/verify/${token}">Click to verify</a>
         `
       );
       res.status(200).json({ message: "Check inbox or Spam Folder" });
