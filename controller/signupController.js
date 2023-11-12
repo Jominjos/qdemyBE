@@ -36,10 +36,13 @@ module.exports = {
       await sendMail(
         userData.email,
         "SignUp Verification",
-        `<h1>HELLO</h1>
-        <h2 > EMAIL VERIFICATION</h2>
-        <p>This Mail is to verify your email for qdemy</p>
-        <a href="https://qdemy.onrender.com/api/user/verify/${token}">Click to verify</a>
+        `
+        <h2 > QDEMY EMAIL VERIFICATION</h2>
+        <h3>Dear User,</h3>
+
+        <h3> We hope this message finds you well. To ensure the security of your account, we require you to verify your sign-in attempt.</h3>
+        
+        <a href="https://qdemy.onrender.com/api/user/verify/${token}">👉Click to verify</a>
         `
       );
       res.status(200).json({ message: "Check inbox or Spam Folder" });
